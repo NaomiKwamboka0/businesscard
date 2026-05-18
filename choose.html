@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Naomi Kwamboka Onyancha — Choose Your View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nude-light: #F5E6D8;
+    --nude:       #E8D2B8;
+    --nude-deep:  #C9A876;
+    --gold:       #C9A227;
+    --gold-soft:  #D4AF37;
+    --gold-dark:  #8B6914;
+    --ink:        #2B1B0E;
+    --ink-soft:   #5A4632;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background:
+      radial-gradient(circle at 15% 20%, #F5E6D8 0%, transparent 55%),
+      radial-gradient(circle at 85% 80%, #E8D2B8 0%, transparent 55%),
+      linear-gradient(135deg, #F8EFE3 0%, #EAD7BD 100%);
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 880px;
+    text-align: center;
+  }
+
+  .ornament {
+    display: inline-block;
+    color: var(--gold-dark);
+    font-size: 22px;
+    letter-spacing: 12px;
+    margin-bottom: 18px;
+  }
+
+  .greeting {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 56px);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .gold-divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), var(--gold-soft), var(--gold-dark), transparent);
+    margin: 18px auto 22px;
+  }
+
+  .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 560px;
+    margin: 0 auto 50px;
+    line-height: 1.5;
+  }
+
+  .choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+
+  .choice-card {
+    position: relative;
+    background: linear-gradient(135deg, #FAF1E4 0%, #E8D2B8 100%);
+    border-radius: 18px;
+    padding: 40px 32px;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow:
+      0 20px 40px -15px rgba(139, 105, 20, 0.3),
+      inset 0 0 0 1px rgba(212, 175, 55, 0.3);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.35s ease;
+    overflow: hidden;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+  }
+
+  .choice-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold-soft), var(--gold-dark), var(--gold-soft), transparent);
+    opacity: 0.8;
+  }
+
+  .choice-card::after {
+    content: "→";
+    position: absolute;
+    bottom: 28px;
+    right: 32px;
+    font-size: 26px;
+    color: var(--gold-dark);
+    transition: transform 0.35s ease;
+  }
+
+  .choice-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 30px 60px -20px rgba(139, 105, 20, 0.45),
+      inset 0 0 0 1px var(--gold-soft);
+  }
+  .choice-card:hover::after {
+    transform: translateX(8px);
+  }
+
+  .choice-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--gold-soft), var(--gold-dark));
+    color: #FFFAF0;
+    font-size: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px -6px rgba(139, 105, 20, 0.5);
+  }
+
+  .choice-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .choice-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+
+  .choice-desc {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 280px;
+  }
+
+  .footer {
+    margin-top: 30px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 2px;
+  }
+  .footer span {
+    color: var(--gold-dark);
+    font-weight: 600;
+    letter-spacing: 3px;
+  }
+
+  .contact-row {
+    margin-top: 16px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+  .contact-row a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold-dark);
+    padding-bottom: 2px;
+    transition: color 0.2s ease;
+  }
+  .contact-row a:hover { color: var(--gold-dark); }
+
+  @media (max-width: 680px) {
+    .choices { grid-template-columns: 1fr; gap: 20px; }
+    .choice-card { min-height: auto; padding: 32px 26px; }
+    .subtitle { margin-bottom: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="ornament">&#10086; &middot; &#10086;</div>
+  <div class="greeting">Welcome</div>
+  <h1>Naomi Kwamboka Onyancha</h1>
+  <div class="gold-divider"></div>
+  <p class="subtitle">
+    Automation &amp; AI Systems Engineer.<br/>
+    Choose what you&rsquo;d like to see &mdash; my full CV, or the live AI &amp; n8n projects I&rsquo;ve built.
+  </p>
+
+  <div class="choices">
+
+    <!-- CV CARD -->
+    <a class="choice-card" href="cv.pdf" target="_blank" rel="noopener">
+      <div class="choice-icon">&#128196;</div>
+      <div class="choice-label">Option 01</div>
+      <div class="choice-title">View My CV</div>
+      <div class="choice-desc">
+        Full r&eacute;sum&eacute; &mdash; 4+ years of progressive IT, cloud security, AI agent engineering &amp; intelligent workflow automation.
+      </div>
+    </a>
+
+    <!-- PROJECTS CARD -->
+    <a class="choice-card" href="https://naomikwamboka0.github.io/n8n-Profile/" target="_blank" rel="noopener">
+      <div class="choice-icon">&#9881;</div>
+      <div class="choice-label">Option 02</div>
+      <div class="choice-title">See My Projects</div>
+      <div class="choice-desc">
+        Interactive showcase of 9 production AI agents &amp; n8n automation systems running in real businesses today.
+      </div>
+    </a>
+
+  </div>
+
+  <div class="footer">A NUDE &amp; <span>GOLD</span> PORTFOLIO &middot; 2026</div>
+  <div class="contact-row">
+    <a href="mailto:ateidiana@gmail.com">ateidiana@gmail.com</a>
+    <a href="tel:+254742765558">+254 742 765 558</a>
+    <a href="https://linkedin.com/in/naomi-kwamboka" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Naomi Kwamboka Onyancha — Business Card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --nude-light: #F5E6D8;
+    --nude:       #E8D2B8;
+    --nude-deep:  #C9A876;
+    --gold:       #C9A227;
+    --gold-soft:  #D4AF37;
+    --gold-dark:  #8B6914;
+    --ink:        #2B1B0E;
+    --ink-soft:   #5A4632;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background:
+      radial-gradient(circle at 20% 20%, #F5E6D8 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, #E8D2B8 0%, transparent 50%),
+      linear-gradient(135deg, #F8EFE3 0%, #EAD7BD 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    color: var(--ink);
+  }
+
+  .card-wrap {
+    perspective: 1500px;
+    width: 100%;
+    max-width: 920px;
+  }
+
+  .card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.75 / 1;
+    transform-style: preserve-3d;
+    transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
+    cursor: pointer;
+  }
+
+  .card.flipped { transform: rotateY(180deg); }
+
+  .face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 60px -20px rgba(139, 105, 20, 0.35),
+      0 18px 36px -12px rgba(43, 27, 14, 0.25),
+      inset 0 0 0 1px rgba(212, 175, 55, 0.25);
+    background: linear-gradient(135deg, #F8EFE3 0%, #ECDABF 55%, #DCC196 100%);
+  }
+
+  /* ---------- FRONT FACE ---------- */
+  .front {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    padding: 44px 48px;
+  }
+
+  .front::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold-soft) 50%, var(--gold) 80%, transparent);
+  }
+
+  .front::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark) 20%, var(--gold) 50%, var(--gold-dark) 80%, transparent);
+  }
+
+  .monogram {
+    position: absolute;
+    top: 28px;
+    right: 32px;
+    width: 54px;
+    height: 54px;
+    border: 1.5px solid var(--gold-dark);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--gold-dark);
+    letter-spacing: 1px;
+    background: rgba(255, 250, 240, 0.4);
+  }
+
+  .left-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 24px;
+  }
+
+  .brand-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px;
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--ink);
+    letter-spacing: 0.5px;
+  }
+
+  .name .gold-line {
+    display: block;
+    width: 56px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-soft));
+    margin: 14px 0 12px;
+  }
+
+  .title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    max-width: 320px;
+    line-height: 1.4;
+  }
+
+  .contact {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    font-size: 12.5px;
+    color: var(--ink);
+  }
+
+  .contact li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact .icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--gold-soft), var(--gold-dark));
+    color: #fff;
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .contact a { color: var(--ink); text-decoration: none; }
+  .contact a:hover { color: var(--gold-dark); }
+
+  /* ---------- QR PANEL ---------- */
+  .qr-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border-left: 1px dashed rgba(139, 105, 20, 0.35);
+    padding-left: 28px;
+  }
+
+  .qr-frame {
+    padding: 14px;
+    background: #FFFAF0;
+    border-radius: 12px;
+    box-shadow:
+      inset 0 0 0 1px var(--gold-soft),
+      0 8px 20px -8px rgba(139, 105, 20, 0.4);
+    position: relative;
+  }
+
+  .qr-frame::before,
+  .qr-frame::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--gold-dark);
+  }
+  .qr-frame::before { top: -4px; left: -4px;   border-right: none; border-bottom: none; }
+  .qr-frame::after  { bottom: -4px; right: -4px; border-left: none;  border-top: none;    }
+
+  #qrcode img, #qrcode canvas { display: block; border-radius: 4px; }
+
+  .qr-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    font-weight: 600;
+  }
+
+  .qr-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 12px;
+    color: var(--ink-soft);
+    text-align: center;
+    max-width: 180px;
+    line-height: 1.3;
+  }
+
+  /* ---------- BACK FACE ---------- */
+  .back {
+    transform: rotateY(180deg);
+    background:
+      radial-gradient(circle at 50% 50%, #F8EFE3 0%, #D9BF8F 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .back::before, .back::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+  }
+  .back::before { top: 24px; }
+  .back::after  { bottom: 24px; }
+
+  .back-monogram {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 90px;
+    font-weight: 600;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold-soft), var(--gold-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 14px;
+  }
+
+  .back-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    color: var(--ink);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .back-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 360px;
+  }
+
+  /* ---------- FLIP HINT + ACTIONS ---------- */
+  .hint {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 1px;
+  }
+
+  .actions {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    appearance: none;
+    border: 1px solid var(--gold-dark);
+    background: transparent;
+    color: var(--gold-dark);
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn:hover {
+    background: linear-gradient(135deg, var(--gold-soft), var(--gold-dark));
+    color: #fff;
+    transform: translateY(-1px);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 720px) {
+    .card { aspect-ratio: auto; }
+    .front {
+      grid-template-columns: 1fr;
+      padding: 32px 28px;
+      gap: 24px;
+    }
+    .qr-panel { border-left: none; border-top: 1px dashed rgba(139,105,20,0.35); padding-left: 0; padding-top: 24px; }
+    .name { font-size: 30px; }
+    .monogram { top: 18px; right: 18px; width: 44px; height: 44px; font-size: 20px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .hint, .actions { display: none; }
+    .card { transform: none !important; }
+    .face { box-shadow: none; border: 1px solid #ccc; }
+    .back { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card-wrap">
+  <div class="card" id="card">
+
+    <!-- FRONT -->
+    <div class="face front">
+      <div class="monogram">NO</div>
+
+      <div class="left-panel">
+        <div>
+          <div class="brand-mark">Portfolio &middot; 2026</div>
+          <h1 class="name">
+            Naomi Kwamboka
+            <span class="gold-line"></span>
+          </h1>
+          <div class="title">Automation &amp; AI Systems Engineer</div>
+          <p class="tagline">Building production-grade autonomous AI agent systems — from cloud security to LLM workflow orchestration.</p>
+        </div>
+
+        <ul class="contact">
+          <li><span class="icon">&#9993;</span><a href="mailto:ateidiana@gmail.com">ateidiana@gmail.com</a></li>
+          <li><span class="icon">&#9742;</span><a href="tel:+254742765558">+254 742 765 558</a></li>
+          <li><span class="icon">&#8962;</span>Lukenya Hills, Kenya</li>
+          <li><span class="icon">in</span><a href="https://linkedin.com/in/naomi-kwamboka" target="_blank" rel="noopener">linkedin.com/in/naomi-kwamboka</a></li>
+        </ul>
+      </div>
+
+      <div class="qr-panel">
+        <div class="qr-frame">
+          <div id="qrcode"></div>
+        </div>
+        <div class="qr-label">Scan me</div>
+        <div class="qr-sub">Choose to view my CV or explore my AI &amp; n8n projects</div>
+      </div>
+    </div>
+
+    <!-- BACK -->
+    <div class="face back">
+      <div class="back-monogram">N&middot;O</div>
+      <div class="back-name">Naomi Kwamboka Onyancha</div>
+      <div class="back-tag">
+        &ldquo;A vital part of the company&rsquo;s technical transformation.&rdquo;<br/>
+        <span style="font-size:11px; letter-spacing:2px; text-transform:uppercase; font-style:normal; color: var(--gold-dark);">— Rushlake Media GmbH</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="hint">Tap or click the card to flip it.</div>
+<div class="actions">
+  <a class="btn" href="choose.html" target="_blank" rel="noopener">Open landing page</a>
+  <button class="btn" onclick="window.print()">Print card</button>
+</div>
+
+<script>
+  // ============================================================
+  // CONFIG — set this to the public URL where choose.html is hosted.
+  // Once you push this folder to GitHub Pages (or any host), update
+  // the value below to the live URL of choose.html and the QR will
+  // regenerate automatically when the page reloads.
+  // ============================================================
+  const CHOICE_PAGE_URL = "https://naomikwamboka0.github.io/businesscard/choose.html";
+
+  // Generate the QR code
+  new QRCode(document.getElementById("qrcode"), {
+    text: CHOICE_PAGE_URL,
+    width: 150,
+    height: 150,
+    colorDark:  "#2B1B0E",
+    colorLight: "#FFFAF0",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+
+  // Flip interaction
+  const card = document.getElementById("card");
+  card.addEventListener("click", () => card.classList.toggle("flipped"));
+</script>
+
+</body>
+</html>
